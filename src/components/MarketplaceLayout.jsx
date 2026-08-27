@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link, NavLink, Outlet, useNavigate } from 'react-router-dom'
-import { ShoppingCart, Search, Home as HomeIcon, Compass, User, Heart } from 'lucide-react'
+import { Search, Home as HomeIcon, Compass, MapPin, ShoppingBag } from 'lucide-react'
 import { useCart } from '../context/CartContext'
 import { Peacock, MeenakariBorder } from './IndianMotifs'
 
