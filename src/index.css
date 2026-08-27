@@ -1,0 +1,60 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-body text-india-night bg-india-cream antialiased;
+}
+
+.font-display {
+  font-family: 'Baloo 2', ui-rounded, system-ui, sans-serif;
+}
+
+/* custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  @apply bg-saffron/60 rounded-full;
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-2xl shadow-card border border-black/5;
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-saffron px-5 py-3 font-semibold text-white transition hover:bg-saffron-dark active:scale-95 disabled:opacity-50;
+  }
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-black/10 bg-white px-5 py-3 font-semibold text-india-night transition hover:border-saffron hover:text-saffron-dark active:scale-95;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-black/10 bg-white px-3.5 py-1.5 text-sm font-medium transition hover:border-saffron hover:text-saffron-dark cursor-pointer select-none;
+  }
+  .chip-active {
+    @apply border-saffron bg-saffron text-white hover:text-white;
+  }
+  .input {
+    @apply w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-sm outline-none transition focus:border-saffron focus:ring-2 focus:ring-saffron/30 placeholder:text-black/30;
+  }
+  .label {
+    @apply mb-1.5 block text-sm font-semibold text-india-night/80;
+  }
+  .section-title {
+    @apply font-display text-2xl font-bold text-india-night sm:text-3xl;
+  }
+  /* Indian rangoli dotted texture */
+  .rangoli {
+    background-image: radial-gradient(circle at 1px 1px, rgba(201, 151, 0, 0.22) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+  }
+}

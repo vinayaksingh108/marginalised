@@ -1,0 +1,56 @@
+// 28+ Indian languages & dialects in their native scripts
+export const LANGUAGES = [
+  { code: 'hi', name: 'हिन्दी', latin: 'Hindi', tts: 'hi-IN', group: 'north' },
+  { code: 'mr', name: 'मराठी', latin: 'Marathi', tts: 'mr-IN', group: 'west' },
+  { code: 'ta', name: 'தமிழ்', latin: 'Tamil', tts: 'ta-IN', group: 'south' },
+  { code: 'te', name: 'తెలుగు', latin: 'Telugu', tts: 'te-IN', group: 'south' },
+  { code: 'kn', name: 'ಕನ್ನಡ', latin: 'Kannada', tts: 'kn-IN', group: 'south' },
+  { code: 'ml', name: 'മലയാളം', latin: 'Malayalam', tts: 'ml-IN', group: 'south' },
+  { code: 'bn', name: 'বাংলা', latin: 'Bengali', tts: 'bn-IN', group: 'east' },
+  { code: 'gu', name: 'ગુજરાતી', latin: 'Gujarati', tts: 'gu-IN', group: 'west' },
+  { code: 'pa', name: 'ਪੰਜਾਬੀ', latin: 'Punjabi', tts: 'pa-IN', group: 'north' },
+  { code: 'or', name: 'ଓଡ଼ିଆ', latin: 'Odia', tts: 'or-IN', group: 'east' },
+  { code: 'as', name: 'অসমীয়া', latin: 'Assamese', tts: 'as-IN', group: 'east' },
+  { code: 'ur', name: 'اردو', latin: 'Urdu', tts: 'ur-IN', group: 'north' },
+  { code: 'sd', name: 'سنڌي', latin: 'Sindhi', tts: 'sd-IN', group: 'west' },
+  { code: 'ks', name: 'कॉशुर', latin: 'Kashmiri', tts: 'ks-IN', group: 'north' },
+  { code: 'ne', name: 'नेपाली', latin: 'Nepali', tts: 'ne-IN', group: 'north' },
+  { code: 'si', name: 'सिन्धी (देवनागरी)', latin: 'Sindhi (Devanagari)', tts: 'hi-IN', group: 'west' },
+  { code: 'sa', name: 'संस्कृतम्', latin: 'Sanskrit', tts: 'hi-IN', group: 'north' },
+  { code: 'kok', name: 'कोंकणी', latin: 'Konkani', tts: 'hi-IN', group: 'west' },
+  { code: 'doi', name: 'डोगरी', latin: 'Dogri', tts: 'hi-IN', group: 'north' },
+  // Regional dialects & tribal languages
+  { code: 'bho', name: 'भोजपुरी', latin: 'Bhojpuri', tts: 'hi-IN', group: 'east' },
+  { code: 'raj', name: 'मेवाड़ी', latin: 'Rajasthani (Mewari)', tts: 'hi-IN', group: 'west' },
+  { code: 'raj2', name: 'मारवाड़ी', latin: 'Marwari', tts: 'hi-IN', group: 'west' },
+  { code: 'hary', name: 'हरियाणवी', latin: 'Haryanvi', tts: 'hi-IN', group: 'north' },
+  { code: 'cg', name: 'छत्तीसगढ़ी', latin: 'Chhattisgarhi', tts: 'hi-IN', group: 'central' },
+  { code: 'bgl', name: 'بنگالی', latin: 'Braj Bhasha', tts: 'hi-IN', group: 'north' },
+  { code: 'mag', name: 'मगही', latin: 'Magahi', tts: 'hi-IN', group: 'central' },
+  { code: 'sd2', name: 'ठेठ', latin: 'Thethi', tts: 'hi-IN', group: 'north' },
+  { code: 'kuma', name: 'कुमाऊँनी', latin: 'Kumaoni', tts: 'hi-IN', group: 'north' },
+  { code: 'gar', name: 'गढ़वाली', latin: 'Garhwali', tts: 'hi-IN', group: 'north' },
+  { code: 'sant', name: 'संताली', latin: 'Santali', tts: 'hi-IN', group: 'central' },
+].map((l, i) => ({ ...l, id: i + 1 }))
+
+export const LANGUAGE_GROUPS = [
+  { key: 'north', label: 'Northern', hint: 'Hindi belt & Himalayas', flag: '🏔️' },
+  { key: 'east', label: 'Eastern', hint: 'Bengal, Odisha, Assam', flag: '🐆' },
+  { key: 'south', label: 'Southern', hint: 'Dravidian belt', flag: '🌺' },
+  { key: 'west', label: 'Western', hint: 'Rajasthan, Gujarat, Konkan', flag: '🏜️' },
+  { key: 'central', label: 'Central', hint: 'Chhattisgarh & dialects', flag: '🌄' },
+]
+
+export const ATLAS_OF_INDIA = [
+  { state: 'Rajasthan', crafts: ['Blue Pottery', 'Bandhani', 'Block Print'], flag: '🏜️' },
+  { state: 'Uttar Pradesh', crafts: ['Chikankari', 'Brassware', 'Moradabad'], flag: '🕌' },
+  { state: 'West Bengal', crafts: ['Tant Saree', 'Dokra Art', 'Terracotta'], flag: '🐚' },
+  { state: 'Gujarat', crafts: ['Patanola Patola', 'Kutch Embroidery'], flag: '🪁' },
+  { state: 'Madhya Pradesh', crafts: ['Chanderi', 'Gond Painting', 'Bell Metal'], flag: '🐆' },
+  { state: 'Odisha', crafts: ['Pattachitra', 'Silver Filigree'], flag: '🐘' },
+  { state: 'Kerala', crafts: ['Rug and Coir', 'Kasargod'], flag: '🌴' },
+  { state: 'Karnataka', crafts: ['Mysore Silk', 'Rosewood'], flag: '🌺' },
+  { state: 'Tamil Nadu', crafts: ['Tanjore', 'Kumbhcoil Brass'], flag: '🏛️' },
+  { state: 'Himachal', crafts: ['Kullu Shawl', 'Woodcarving'], flag: '🏔️' },
+  { state: 'Assam', crafts: ['Muga Silk', 'Bamboo Craft'], flag: '🐘' },
+]
