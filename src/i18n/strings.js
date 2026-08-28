@@ -3,8 +3,6 @@
 // written languages; Devanagari-script dialects (Bhojpuri, Rajasthani,
 // Chhattisgarhi, Haryanvi, …) gracefully fall back to Hindi, English is final.
 
-const T = {}
-
 const en = {
   hello: 'Namaste',
   studio: 'Artisan Studio',
@@ -83,3 +81,228 @@ const mr = {
   savingsBanner: 'भविष्य निधी · PPF ऑटो-बचत',
   openWallet: 'वॉलेट उघडा',
 }
+
+const ta = {
+  hello: 'வணக்கம்',
+  studio: 'கலைஞர் ஸ்டூடியோ',
+  voiceAssistant: 'குரல் உதவியாளர்',
+  dashboard: 'டாஷ்போர்டு',
+  addProduct: 'பொருள் சேர்',
+  inventory: 'சரக்குகள்',
+  orders: 'ஆர்டர்கள்',
+  analytics: 'பகுப்பாய்வு ஸ்டூடியோ',
+  wallet: 'ஸ்மார்ட் வாலட்',
+  schemes: 'அரசு திட்டங்கள்',
+  milestones: 'மைல்கற்கள்',
+  settings: 'அமைப்புகள்',
+  todayOrders: 'இன்றைய ஆர்டர்கள்',
+  totalEarnings: 'மொத்த வருவாய்',
+  pendingDispatch: 'நிலுவை அனுப்பல்',
+  rating: 'மதிப்பீடு',
+  recentOrders: 'சமீப ஆர்டர்கள்',
+  viewAll: 'அனைத்தும் காண்க',
+  savingsBanner: 'எதிர்கால நிதி · PPF தானியங்கி சேமிப்பு',
+  openWallet: 'வாலட்டை திற',
+}
+
+const te = {
+  hello: 'నమస్కారం',
+  studio: 'కళాకారుడు స్టూడియో',
+  voiceAssistant: 'వాయిస్ అసిస్టెంట్',
+  dashboard: 'డాష్‌బోర్డ్',
+  addProduct: 'ఉత్పత్తి జోడించు',
+  inventory: 'జాబితా',
+  orders: 'ఆర్డర్‌లు',
+  analytics: 'అనలిటిక్స్ స్టూడియో',
+  wallet: 'స్మార్ట్ వాలెట్',
+  schemes: 'ప్రభుత్వ పథకాలు',
+  milestones: 'మైలురాళ్ళు',
+  settings: 'సెట్టింగ్స్',
+  todayOrders: 'ఈరోజు ఆర్డర్‌లు',
+  totalEarnings: 'మొత్తం ఆదాయం',
+  pendingDispatch: 'పెండింగ్ డిస్పాచ్',
+  rating: 'రేటింగ్',
+  recentOrders: 'ఇటీవలి ఆర్డర్‌లు',
+  viewAll: 'అన్నీ చూడండి',
+  savingsBanner: 'భవిష్యత్ నిధి · PPF ఆటో పొదుపు',
+  openWallet: 'వాలెట్ తెరవండి',
+}
+
+const kn = {
+  hello: 'ನಮಸ್ಕಾರ',
+  studio: 'ಕುಶಲಕರ್ಮಿ ಸ್ಟುಡಿಯೋ',
+  voiceAssistant: 'ಧ್ವನಿ ಸಹಾಯಕ',
+  dashboard: 'ಡ್ಯಾಷ್‌ಬೋರ್ಡ್',
+  addProduct: 'ಉತ್ಪನ್ನ ಸೇರಿ',
+  inventory: 'ದಾಸ್ತಾನು',
+  orders: 'ಆರ್ಡರ್ಗಳು',
+  analytics: 'ವಿಶ್ಲೇಷಣಾ ಸ್ಟುಡಿಯೋ',
+  wallet: 'ಸ್ಮಾರ್ಟ್ ವಾಲೆಟ್',
+  schemes: 'ಸರಕಾರಿ ಯೋಜನೆಗಳು',
+  milestones: 'ಮೈಲಿಗಲ್ಲುಗಳು',
+  settings: 'ಸೆಟ್ಟಿಂಗ್‌ಗಳು',
+  todayOrders: 'ಇಂದಿನ ಆರ್ಡರ್ಗಳು',
+  totalEarnings: 'ಒಟ್ಟು ಆದಾಯ',
+  pendingDispatch: 'ಬಾಕಿ ರವಾನೆ',
+  rating: 'ರೇಟಿಂಗ್',
+  recentOrders: 'ಇತ್ತೀಚಿನ ಆರ್ಡರ್ಗಳು',
+  viewAll: 'ಎಲ್ಲಾ ನೋಡಿ',
+  savingsBanner: 'ಭವಿಷ್ಯ ನಿಧಿ · PPF ಸ್ವಯಂ ಉಳಿತಾಯ',
+  openWallet: 'ವಾಲೆಟ್ ತೆರೆಯಿರಿ',
+}
+
+const ml = {
+  hello: 'നമസ്കാരം',
+  studio: 'കലാകാരൻ സ്റ്റുഡിയോ',
+  voiceAssistant: 'ശബ്ദ സഹായി',
+  dashboard: 'ഡാഷ്‌ബോർഡ്',
+  addProduct: 'ഉൽപ്പന്നം ചേർക്കുക',
+  inventory: 'സ്റ്റോക്ക്',
+  orders: 'ഓർഡറുകൾ',
+  analytics: 'വിലകാണൽ സ്റ്റുഡിയോ',
+  wallet: 'സ്മാർട്ട് വാലറ്റ്',
+  schemes: 'സർക്കാർ പദ്ധതികൾ',
+  milestones: 'മൈൽസ്റ്റോണുകൾ',
+  settings: 'ക്രമീകരണങ്ങൾ',
+  todayOrders: 'ഇന്നത്തെ ഓർഡറുകൾ',
+  totalEarnings: 'മൊത്തം വരവ്',
+  pendingDispatch: 'പെൻഡിംഗ് ഡിസ്പാച്ച്',
+  rating: 'റേറ്റിംഗ്',
+  recentOrders: 'പുതിയ ഓർഡറുകൾ',
+  viewAll: 'എല്ലാം കാണുക',
+  savingsBanner: 'ഭാവി നിധി · PPF സ്വയം സമ്പാദ്യം',
+  openWallet: 'വാലറ്റ് തുറക്കുക',
+}
+
+const bn = {
+  hello: 'নমস্কার',
+  studio: 'শিল্পী স্টুডিও',
+  voiceAssistant: 'ভয়েস সহকারী',
+  dashboard: 'ড্যাশবোর্ড',
+  addProduct: 'প্রোডাক্ট যোগ করুন',
+  inventory: 'ইনভেনটরি',
+  orders: 'অর্ডার',
+  analytics: 'অ্যানালিটিক্স স্টুডিও',
+  wallet: 'স্মার্ট ওয়ালেট',
+  schemes: 'সরকারি প্রকল্প',
+  milestones: 'মাইলস্টোন',
+  settings: 'সেটিংস',
+  todayOrders: 'আজকের অর্ডার',
+  totalEarnings: 'মোট আয়',
+  pendingDispatch: 'আউয়ের অপেক্ষায়',
+  rating: 'রেটিং',
+  recentOrders: 'সাম্প্রতিক অর্ডার',
+  viewAll: 'সব দেখুন',
+  savingsBanner: 'ভভিষ্য নিধি · PPF অটো-সঞ্চয়',
+  openWallet: 'ওয়ালেট খুলুন',
+}
+
+const gu = {
+  hello: 'નમસ્તે',
+  studio: 'કારીગર સ્ટુડિયો',
+  voiceAssistant: 'વૉઇસ સહાયક',
+  dashboard: 'ડેશબોર્ડ',
+  addProduct: 'પ્રોડક્ટ ઉમેરો',
+  inventory: 'ઇન્વેન્ટરી',
+  orders: 'ઓર્ડર',
+  analytics: 'એનાલિટિક્સ સ્ટુડિયો',
+  wallet: 'સ્માર્ટ વૉલેટ',
+  schemes: 'સરકારી યોજનાઓ',
+  milestones: 'માઈલસ્ટોન',
+  settings: 'સેટિંગ્સ',
+  todayOrders: 'આજના ઓર્ડર',
+  totalEarnings: 'કુલ કમાણી',
+  pendingDispatch: 'બાકી શિપિંગ',
+  rating: 'રેટિંગ',
+  recentOrders: 'તાજેતરના ઓર્ડર',
+  viewAll: 'બધા જુઓ',
+  savingsBanner: 'ભવિષ્ય નિધિ · PPF ઓટો-બચત',
+  openWallet: 'વૉલેટ ખોલો',
+}
+
+const pa = {
+  hello: 'ਨਮਸਤੇ',
+  studio: 'ਸ਼ਿਲ੍ਪਕਾਰ ਸਟੂਡੀਓ',
+  voiceAssistant: 'ਆਵਾਜ਼ ਸਹਾਇਕ',
+  dashboard: 'ਡੈਸ਼ਬੋਰਡ',
+  addProduct: 'ਉਤਪਾਦ ਜੋੜੋ',
+  inventory: 'ਇਨਵੈਂਟਰੀ',
+  orders: 'ਆਰਡਰ',
+  analytics: 'ਐਨਾਲਿਟਿਕਸ ਸਟੂਡੀਓ',
+  wallet: 'ਸਮਾਰਟ ਵਾਲਿਟ',
+  schemes: 'ਸਰਕਾਰੀ ਸਕੀਮਾਂ',
+  milestones: 'ਮਾਈਲਸਟੋਨ',
+  settings: 'ਸੈਟਿੰਗਸ',
+  todayOrders: 'ਅੱਜ ਦੇ ਆਰਡਰ',
+  totalEarnings: 'ਕੁੱਲ ਕਮਾਈ',
+  pendingDispatch: 'ਬਕਾਇਆ ਡਿਸਪੈਚ',
+  rating: 'ਰੇਟਿੰਗ',
+  recentOrders: 'ਤਾਜ਼ਾ ਆਰਡਰ',
+  viewAll: 'ਸਭ ਦੇਖੋ',
+  savingsBanner: 'ਭਬਿਖ ਨਿਧੀ · PPF ਆਟੋ-ਬਚਤ',
+  openWallet: 'ਵਾਲਿਟ ਖੋਲੋ',
+}
+
+const or = {
+  hello: 'ନମସ୍କାର',
+  studio: 'କାରିଗର ଷ୍ଟୁଡିଓ',
+  voiceAssistant: 'ଭଏସ ସହାୟକ',
+  dashboard: 'ଡ୍ୟାସବୋର୍ଡ',
+  addProduct: 'ଉତ୍ପାଦ ଯୋଡନ୍ତୁ',
+  inventory: 'ଷ୍ଟକ',
+  orders: 'ଅର୍ଡର',
+  analytics: 'ଆନାଲିଟିକ୍ସ ଷ୍ଟୁଡିଓ',
+  wallet: 'ସ୍ମାର୍ଟ ୱାଲେଟ',
+  schemes: 'ସରକାରୀ ଯୋଜନା',
+  milestones: 'ମାଇଲସ୍ଟୋନ',
+  settings: 'ସେଟିଂସ',
+  todayOrders: 'ଆଜିର ଅର୍ଡର',
+  totalEarnings: 'ମୋଟ ଆୟ',
+  pendingDispatch: 'ବାକି ଡିସପାଚ',
+  rating: 'ରେଟିଂ',
+  recentOrders: 'ନିକଟ ଅର୍ଡର',
+  viewAll: 'ସବୁ ଦେଖନ୍ତୁ',
+  savingsBanner: 'ଭବିଷ୍ୟ ନିଧି · PPF ଅଟୋ-ସଞ୍ଚୟ',
+  openWallet: 'ୱାଲେଟ ଖୋଲନ୍ତୁ',
+}
+
+const ur = {
+  hello: 'السلام علیکم',
+  studio: 'آرٹیزن اسٹوڈیو',
+  voiceAssistant: 'وائس اسسٹنٹ',
+  dashboard: 'ڈیش بورڈ',
+  addProduct: 'پروڈکٹ شامل کریں',
+  inventory: 'اسٹاک',
+  orders: 'آرڈرز',
+  analytics: 'تجزیاتی اسٹوڈیو',
+  wallet: 'سمارٹ والیٹ',
+  schemes: 'سرکاری اسکیمیں',
+  milestones: 'میل اسٹون',
+  settings: 'سیٹنگز',
+  todayOrders: 'آج کے آرڈر',
+  totalEarnings: 'کل آمدنی',
+  pendingDispatch: 'زیر التوا',
+  rating: 'ریٹنگ',
+  recentOrders: 'حالیہ آرڈرز',
+  viewAll: 'سب دیکھیں',
+  savingsBanner: 'بھوشیا نیدھی · PPF',
+  openWallet: 'والیٹ کھولیں',
+}
+
+// Devanagari-script dialects → Hindi (graceful coverage)
+const FALLBACK_DEVA = 'hi'
+
+// Export map: language code → dictionary. Unknown/dialect codes resolve
+// through resolveLang() in provider.
+export const STRINGS = {
+  en, hi, mr, ta, te, kn, ml, bn, gu, pa, or, ur,
+}
+
+export const LANG_FALLBACK = {
+  // dialects that share Devanagari
+  bho: 'hi', raj: 'hi', raj2: 'hi', hary: 'hi', cg: 'hi', mag: 'hi',
+  kuma: 'hi', gar: 'hi', sant: 'hi', kok: 'hi', doi: 'hi', sd: 'hi', si: 'hi', sa: 'hi',
+  // missing scripts
+  as: 'bn', ne: 'hi', sd2: 'hi', bgl: 'hi', ks: 'hi',
+}
+export { FALLBACK_DEVA }

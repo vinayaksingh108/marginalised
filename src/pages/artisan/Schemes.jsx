@@ -2,10 +2,12 @@ import React, { useState } from 'react'
 import { ExternalLink, Volume2, ChevronDown, ChevronUp } from 'lucide-react'
 import { SCHEMES } from '../../data/schemes'
 import { useVoice } from '../../context/VoiceContext'
+import { useLang } from '../../context/LanguageContext'
 import { Mandala } from '../../components/IndianMotifs'
 
 export default function Schemes() {
   const { speak } = useVoice()
+  const { t } = useLang()
   const [open, setOpen] = useState(null)
   const [vc, setVc] = useState(null)
 
@@ -18,7 +20,7 @@ export default function Schemes() {
     <div className="space-y-5">
       <div className="flex items-start justify-between">
         <div>
-          <h1 className="font-display text-2xl font-extrabold text-white">Government Schemes 🏛️</h1>
+          <h1 className="font-display text-2xl font-extrabold text-white">{t('schemes')} 🏛️</h1>
           <p className="text-sm text-white/60">आधिकारिक सरकारी योजनाएँ · Direct official links</p>
         </div>
         <Mandala className="h-16 w-16 text-saffron opacity-50" />

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { PiggyBank, Wallet, ArrowUpRight, ShieldAlert } from 'lucide-react'
 import { db } from '../../data/db'
 import { useArtisan } from '../../context/ArtisanContext'
+import { useLang } from '../../context/LanguageContext'
 import { inr } from '../../lib/speech'
 
 const TIERS = [
@@ -13,6 +14,7 @@ const TIERS = [
 
 export default function SmartWallet() {
   const { artisan, setArtisan } = useArtisan()
+  const { t } = useLang()
   const [rate, setRate] = useState(artisan?.savingRate || 15)
   const [toast, setToast] = useState('')
   const baseRate = artisan?.savingRate || 15
@@ -36,7 +38,7 @@ export default function SmartWallet() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-white">Smart Wallet 💳</h1>
+        <h1 className="font-display text-2xl font-extrabold text-white">{t('wallet')} 💳</h1>
         <p className="text-sm text-white/60">फ़ायदे का 10–20% खुद-ब-खुद PPF में जमा</p>
       </div>
 

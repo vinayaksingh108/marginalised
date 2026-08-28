@@ -8,11 +8,13 @@ import { notifyProductsChanged } from '../../data/useStore'
 import { removeBackground, studioEnhance } from '../../lib/bgremove'
 import { createRecognizer, speak, inr } from '../../lib/speech'
 import { CATEGORY_META } from '../../components/IndianMotifs'
+import { useLang } from '../../context/LanguageContext'
 
 const CATEGORIES = Object.entries(CATEGORY_META).map(([key, m]) => ({ key, ...m }))
 
 export default function AddProduct() {
   const navigate = useNavigate()
+  const { t } = useLang()
   const fileRef = useRef(null)
   const canvasRef = useRef(null)
   const [rawUrl, setRawUrl] = useState(null)
@@ -121,7 +123,7 @@ export default function AddProduct() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-white">Smart Cataloging Studio 📸</h1>
+        <h1 className="font-display text-2xl font-extrabold text-white">{t('addProduct')} 📸</h1>
         <p className="text-sm text-white/60">फोटो लें · AI से पृष्ठभूमि हटाएँ · बोलकर कैटलॉग करें</p>
       </div>
 

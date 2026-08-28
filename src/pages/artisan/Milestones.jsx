@@ -1,11 +1,13 @@
 import React from 'react'
 import { Trophy, Gift, Lock, ChevronRight } from 'lucide-react'
 import { useArtisan } from '../../context/ArtisanContext'
+import { useLang } from '../../context/LanguageContext'
 import { MILESTONES } from '../../data/schemes'
 import { MeenakariBorder } from '../../components/IndianMotifs'
 
 export default function Milestones() {
   const { artisan } = useArtisan()
+  const { t } = useLang()
   const orders = artisan?.totalOrders || 0
   const next = 1000
   const pct = Math.min(100, (orders / next) * 100)
@@ -16,7 +18,7 @@ export default function Milestones() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-white">Milestones 🏆</h1>
+        <h1 className="font-display text-2xl font-extrabold text-white">{t('milestones')} 🏆</h1>
         <p className="text-sm text-white/60">बैज, पुरस्कार और 1000-ऑर्डर विरासत यात्रा</p>
       </div>
 

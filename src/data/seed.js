@@ -79,6 +79,21 @@ const mk = (id, a, o) => {
   return o
 }
 
+// Fair-wage price floors per craft (hard floor the pricing engine enforces)
+export const FLOOR_BY_CRAFT = {
+  pottery: 180,
+  metalcraft: 320,
+  handloom: 420,
+  woodwork: 210,
+}
+
+// Live-action simulation feed for bidding products
+export const BID_FEED = [
+  { bidder: 'Ritu🇮🇳', amount: 940 },
+  { bidder: 'Sahana', amount: 985 },
+  { bidder: 'Amit.K', amount: 1010 },
+]
+
 export const PRODUCTS = [
   {
     id: 'p1',

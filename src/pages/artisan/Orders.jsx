@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Phone, PhoneOff, Volume2, CheckCircle2, Clock } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useArtisan } from '../../context/ArtisanContext'
+import { useLang } from '../../context/LanguageContext'
 import { speak, cancelSpeech, inr } from '../../lib/speech'
 
 const TABS = ['New', 'Confirmed via IVR', 'Packed', 'Shipped']
@@ -14,6 +15,7 @@ const STATUS_STYLE = {
 
 export default function Orders() {
   const { orders, setOrders } = useArtisan()
+  const { t } = useLang()
   const [tab, setTab] = useState('New')
   const [call, setCall] = useState(null)
   const audioRef = useRef(null)
@@ -63,7 +65,7 @@ export default function Orders() {
   return (
     <div className="space-y-5">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-white">Orders 📦</h1>
+        <h1 className="font-display text-2xl font-extrabold text-white">{t('orders')} 📦</h1>
         <p className="text-sm text-white/60">पुष्टि IVR कॉल से करें · देशभर के खरीदारों के ऑर्डर</p>
       </div>
 

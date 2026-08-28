@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Mic, Minus, Plus, Volume2 } from 'lucide-react'
 import { useArtisan } from '../../context/ArtisanContext'
+import { useLang } from '../../context/LanguageContext'
 import { updateProduct } from '../../data/db'
 import { notifyProductsChanged } from '../../data/useStore'
 import { CraftArt, CATEGORY_META } from '../../components/IndianMotifs'
@@ -8,6 +9,7 @@ import { inr, parseVoiceIntent, createRecognizer, speak } from '../../lib/speech
 
 export default function Inventory() {
   const { products, refreshProducts } = useArtisan()
+  const { t } = useLang()
   const [selected, setSelected] = useState(null)
   const [listening, setListening] = useState(false)
   const [log, setLog] = useState('')
@@ -63,7 +65,7 @@ export default function Inventory() {
     <div className="space-y-5">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
-          <h1 className="font-display text-2xl font-extrabold text-white">Inventory 🏺</h1>
+          <h1 className="font-display text-2xl font-extrabold text-white">{t('inventory')} 🏺</h1>
           <p className="text-sm text-white/60">स्टॉक व कीमत — बोलकर या बटन से अपडेट करें</p>
         </div>
         {selected && (

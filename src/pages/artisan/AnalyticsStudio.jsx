@@ -1,10 +1,12 @@
 import React, { useMemo } from 'react'
 import { TrendingUp, PiggyBank, Wrench, Wallet, BarChart3 } from 'lucide-react'
 import { useArtisan } from '../../context/ArtisanContext'
+import { useLang } from '../../context/LanguageContext'
 import { inr } from '../../lib/speech'
 
 export default function AnalyticsStudio() {
   const { analytics } = useArtisan()
+  const { t } = useLang()
   const a = analytics
   const netProfit = a.laborEarnings
   const maxMonth = Math.max(...a.monthly.map((m) => m.units))
@@ -20,7 +22,7 @@ export default function AnalyticsStudio() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-extrabold text-white">Analytics Studio 📊</h1>
+        <h1 className="font-display text-2xl font-extrabold text-white">{t('analytics')} 📊</h1>
         <p className="text-sm text-white/60">कमाई, लागत और बचत — एक नज़र में</p>
       </div>
 

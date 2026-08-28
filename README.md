@@ -39,7 +39,8 @@ npm run preview    # serve the production build
 
 ## Architecture
 
-- `src/context/` — CartProvider, ArtisanProvider, VoiceProvider (global state + persistent FAB across the artisan portal)
+- `src/context/` — CartProvider, ArtisanProvider, VoiceProvider (global state + persistent FAB across the artisan portal), **LanguageProvider** (lightweight i18n)
+- `src/i18n/` — translation dictionaries (12 written languages + Devanagari-dialect fallback to Hindi, English fallback)
 - `src/data/` — Dexie DB, seed files (products, artisans, schemes, analytics), 28+ language catalog
 - `src/lib/` — `speech.js` (Web Speech + Hindi intent parser), `bgremove.js` (client AI background removal with offline fallback)
 - `src/components/` — portal layouts, Voice Assistant FAB, Indian-motif SVG art (peacock, lotus, mandala, temple)

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { Phone, ArrowRight, Volume2 } from 'lucide-react'
 import { LANGUAGES, LANGUAGE_GROUPS } from '../../data/languages'
 import { useVoice } from '../../context/VoiceContext'
+import { useLang } from '../../context/LanguageContext'
+import { db } from '../../data/db'
 import { Peacock, PaisleyRule } from '../../components/IndianMotifs'
 
 export default function Auth() {
@@ -14,20 +16,26 @@ export default function Auth() {
   const [phone, setPhone] = useState('')
   const navigate = useNavigate()
   const { speak } = useVoice()
+  const { setLang } = useLang()
 
   const langList = LANGUAGES.filter((l) => l.group === group)
 
   const selectLanguage = (l) => {
     setSel(l)
+    setLang(l.code) // apply globally: nav, pages, voice
     speak(`नमस्ते, ${l.latin} में स्वागत है! आपने ${l.name} बोली चुनी है।`, l.tts || 'hi-IN')
   }
 
   useEffect(() => {
     if (otpSent && otp.length === 6) {
+      // save language into the artisan profile so it survives reloads
+      if (sel) {
+        db.artisan.update('me', { language: sel.code }).catch(() => {})
+      }
       const t = setTimeout(() => navigate('/artisan/dashboard'), 500)
       return () => clearTimeout(t)
     }
-  }, [otp, otpSent, navigate])
+  }, [otp, otpSent, navigate, sel])
 
   return (
     <div className="mx-auto max-w-3xl">

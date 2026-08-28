@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom'
 import ErrorBoundary from './components/ErrorBoundary'
 import CartProvider from './context/CartContext'
 import ArtisanProvider from './context/ArtisanContext'
+import LanguageProvider from './context/LanguageContext'
 import VoiceProvider from './context/VoiceContext'
 
 import Landing from './pages/Landing'
@@ -30,40 +31,42 @@ export default function App() {
   return (
     <CartProvider>
       <ArtisanProvider>
-        <VoiceProvider>
-          <ErrorBoundary>
-            <Routes>
-              <Route path="/" element={<Landing />} />
+        <LanguageProvider>
+          <VoiceProvider>
+            <ErrorBoundary>
+              <Routes>
+                <Route path="/" element={<Landing />} />
 
-              {/* Buyer Marketplace */}
-              <Route path="/marketplace" element={<MarketplaceLayout />}>
-                <Route index element={<Home />} />
-                <Route path="home" element={<Home />} />
-                <Route path="explore" element={<Explore />} />
-                <Route path="product/:id" element={<Product />} />
-                <Route path="cart" element={<Cart />} />
-                <Route path="checkout" element={<Checkout />} />
-                <Route path="track-order/:id" element={<TrackOrder />} />
-              </Route>
+                {/* Buyer Marketplace */}
+                <Route path="/marketplace" element={<MarketplaceLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path="home" element={<Home />} />
+                  <Route path="explore" element={<Explore />} />
+                  <Route path="product/:id" element={<Product />} />
+                  <Route path="cart" element={<Cart />} />
+                  <Route path="checkout" element={<Checkout />} />
+                  <Route path="track-order/:id" element={<TrackOrder />} />
+                </Route>
 
-              {/* Artisan Studio */}
-              <Route path="/artisan" element={<ArtisanLayout />}>
-                <Route index element={<Auth />} />
-                <Route path="auth" element={<Auth />} />
-                <Route path="dashboard" element={<Dashboard />} />
-                <Route path="studio/add-product" element={<AddProduct />} />
-                <Route path="inventory" element={<Inventory />} />
-                <Route path="orders" element={<Orders />} />
-                <Route path="analytics-studio" element={<AnalyticsStudio />} />
-                <Route path="smart-wallet" element={<SmartWallet />} />
-                <Route path="schemes" element={<Schemes />} />
-                <Route path="milestones" element={<Milestones />} />
-                <Route path="settings" element={<Settings />} />
-              </Route>
-              <Route path="*" element={<Landing />} />
-            </Routes>
-          </ErrorBoundary>
-        </VoiceProvider>
+                {/* Artisan Studio */}
+                <Route path="/artisan" element={<ArtisanLayout />}>
+                  <Route index element={<Auth />} />
+                  <Route path="auth" element={<Auth />} />
+                  <Route path="dashboard" element={<Dashboard />} />
+                  <Route path="studio/add-product" element={<AddProduct />} />
+                  <Route path="inventory" element={<Inventory />} />
+                  <Route path="orders" element={<Orders />} />
+                  <Route path="analytics-studio" element={<AnalyticsStudio />} />
+                  <Route path="smart-wallet" element={<SmartWallet />} />
+                  <Route path="schemes" element={<Schemes />} />
+                  <Route path="milestones" element={<Milestones />} />
+                  <Route path="settings" element={<Settings />} />
+                </Route>
+                <Route path="*" element={<Landing />} />
+              </Routes>
+            </ErrorBoundary>
+          </VoiceProvider>
+        </LanguageProvider>
       </ArtisanProvider>
     </CartProvider>
   )

@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Mic, MicOff, X, Volume2, Sparkles } from 'lucide-react'
 import { useVoice } from '../context/VoiceContext'
+import { useLang } from '../context/LanguageContext'
+import { WELCOME_VOICE } from '../lib/speech'
 
 const HINTS = [
   { label: 'नया उत्पाद जोड़ो', action: 'add' },
@@ -18,8 +20,12 @@ export default function VoiceAssistant({ artisan, onIntent }) {
     listening, speaking, transcript, panelOpen,
     setPanelOpen, startListen, stopAll, speak, registerActions,
   } = useVoice()
+  const { tts } = useLang()
   const navigate = useNavigate()
   const [lastReply, setLastReply] = useState('')
+
+  // TTS dialect for the loaded language
+  const ttsLang = tts || 'hi-IN'
 
   const routeCommand = (raw) => {
     const t = (raw || '').toLowerCase()
@@ -27,53 +33,53 @@ export default function VoiceAssistant({ artisan, onIntent }) {
     // 1. Let the active page try first (stock update / price set)
     if (onIntent && onIntent(raw)) {
       setLastReply('✔ अद्यतन हो गया।')
-      speak('अद्यतन हो गया है।')
+      speak('अद्यतन हो गया है।', ttsLang)
       return
     }
     // 2. Global navigation intents
     if (has('नया', 'जोड़', 'add', 'product')) {
       setLastReply('नया उत्पाद स्टूडियो खोल रहा हूँ।')
-      speak('नया उत्पाद स्टूडियो खोल रहा हूँ।')
+      speak('नया उत्पाद स्टूडियो खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/studio/add-product')
     }
     if (has('स्टॉक', 'इन्वेंटरी', 'inventory', 'stock')) {
       setLastReply('इन्वेंट्री खोल रहा हूँ।')
-      speak('इन्वेंट्री खोल रहा हूँ।')
+      speak('इन्वेंट्री खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/inventory')
     }
     if (has('ऑर्डर', 'order')) {
       setLastReply('ऑर्डर पेज खोल रहा हूँ।')
-      speak('ऑर्डर पेज खोल रहा हूँ।')
+      speak('ऑर्डर पेज खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/orders')
     }
     if (has('कमाई', 'analytics', 'रिपोर्ट')) {
       setLastReply('एनालिटिक्स स्टूडियो खोल रहा हूँ।')
-      speak('एनालिटिक्स स्टूडियो खोल रहा हूँ।')
+      speak('एनालिटिक्स स्टूडियो खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/analytics-studio')
     }
     if (has('बचत', 'wallet', 'पैसा', 'पैसे')) {
       setLastReply('स्मार्ट वॉलेट खोल रहा हूँ।')
-      speak('स्मार्ट वॉलेट खोल रहा हूँ।')
+      speak('स्मार्ट वॉलेट खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/smart-wallet')
     }
     if (has('योजना', 'स्कीम', 'scheme')) {
       setLastReply('सरकारी योजनाएँ खोल रहा हूँ।')
-      speak('सरकारी योजनाएँ खोल रहा हूँ।')
+      speak('सरकारी योजनाएँ खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/schemes')
     }
     if (has('माइलस्टोन', 'बैज', 'milestone', 'badge')) {
       setLastReply('माइलस्टोन खोल रहा हूँ।')
-      speak('माइलस्टोन खोल रहा हूँ।')
+      speak('माइलस्टोन खोल रहा हूँ।', ttsLang)
       return navigate('/artisan/milestones')
     }
     setLastReply('माफ़ कीजिए, समझ नहीं आया। फिर से बोलिए।')
-    speak('माफ़ कीजिए, समझ नहीं आया।')
+    speak('माफ़ कीजिए, समझ नहीं आया।', ttsLang)
   }
 
   useEffect(() => {
     registerActions(routeCommand)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [onIntent])
+  }, [onIntent, ttsLang])
 
   const toggle = () => {
     if (listening) {
@@ -81,8 +87,10 @@ export default function VoiceAssistant({ artisan, onIntent }) {
       return
     }
     setPanelOpen(true)
-    startListen('hi-IN')
+    startListen(ttsLang)
   }
+
+  const greeting = WELCOME_VOICE[ttsLang] || WELCOME_VOICE['hi-IN'] || WELCOME_VOICE.default
 
   return (
     <>
@@ -126,12 +134,12 @@ export default function VoiceAssistant({ artisan, onIntent }) {
               </div>
               <div className="flex items-center justify-between">
                 <button
-                  onClick={() => speak('आप क्या करना चाहेंगे? नया उत्पाद, स्टॉक, ऑर्डर या बचत।')}
+                  onClick={() => speak(greeting, ttsLang)}
                   className="chip"
                 >
                   <Volume2 size={14} /> सुनाओ
                 </button>
-                <span className="text-[11px] text-india-night/50">Web Speech · निःशुल्क</span>
+                <span className="text-[11px] text-india-night/50">Web Speech · निःशुल्क · {ttsLang}</span>
               </div>
             </div>
           </motion.div>
