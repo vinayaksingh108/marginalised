@@ -26,6 +26,7 @@ import SmartWallet from './pages/artisan/SmartWallet'
 import Schemes from './pages/artisan/Schemes'
 import Milestones from './pages/artisan/Milestones'
 import Settings from './pages/artisan/Settings'
+import Circles from './pages/artisan/Circles'
 
 export default function App() {
   return (
@@ -60,6 +61,7 @@ export default function App() {
                   <Route path="smart-wallet" element={<SmartWallet />} />
                   <Route path="schemes" element={<Schemes />} />
                   <Route path="milestones" element={<Milestones />} />
+                  <Route path="circles" element={<Circles />} />
                   <Route path="settings" element={<Settings />} />
                 </Route>
                 <Route path="*" element={<Landing />} />

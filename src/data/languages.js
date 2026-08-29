@@ -1,5 +1,6 @@
-// 28+ Indian languages & dialects in their native scripts
+// 28+ Indian languages & dialects in their native scripts + English
 export const LANGUAGES = [
+  { code: 'en', name: 'English', latin: 'English', tts: 'en-IN', group: 'global' },
   { code: 'hi', name: 'हिन्दी', latin: 'Hindi', tts: 'hi-IN', group: 'north' },
   { code: 'mr', name: 'मराठी', latin: 'Marathi', tts: 'mr-IN', group: 'west' },
   { code: 'ta', name: 'தமிழ்', latin: 'Tamil', tts: 'ta-IN', group: 'south' },
@@ -34,6 +35,7 @@ export const LANGUAGES = [
 ].map((l, i) => ({ ...l, id: i + 1 }))
 
 export const LANGUAGE_GROUPS = [
+  { key: 'global', label: 'Global / English', hint: 'English', flag: '🌐' },
   { key: 'north', label: 'Northern', hint: 'Hindi belt & Himalayas', flag: '🏔️' },
   { key: 'east', label: 'Eastern', hint: 'Bengal, Odisha, Assam', flag: '🐆' },
   { key: 'south', label: 'Southern', hint: 'Dravidian belt', flag: '🌺' },

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Link, NavLink, Outlet, Navigate } from 'react-router-dom'
 import {
   LayoutDashboard, PackagePlus, Boxes, ListOrdered, BarChart3,
-  Wallet, Landmark, Trophy, Mic, Languages,
+  Wallet, Landmark, Trophy, Users2, Mic, Languages,
 } from 'lucide-react'
 import { useArtisan } from '../context/ArtisanContext'
 import { useLang } from '../context/LanguageContext'
@@ -18,6 +18,7 @@ const NAV = [
   { to: '/artisan/smart-wallet', key: 'wallet', icon: Wallet },
   { to: '/artisan/schemes', key: 'schemes', icon: Landmark },
   { to: '/artisan/milestones', key: 'milestones', icon: Trophy },
+  { to: '/artisan/circles', key: 'circles', icon: Users2 },
   { to: '/artisan/settings', key: 'settings', icon: Languages },
 ]
 

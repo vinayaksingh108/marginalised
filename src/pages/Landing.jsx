@@ -44,6 +44,22 @@ export default function Landing() {
               <Mic2 size={20} /> Artisan Login — Voice Studio
             </Link>
           </motion.div>
+
+          {/* Impact stats from Project Loom */}
+          <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}
+            className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-3 sm:grid-cols-4">
+            {[
+              ['6.46M+', 'artisans served'],
+              ['71% / 64%', 'women weavers / artisans'],
+              ['0%', 'listing commission (ONDC)'],
+              ['15–30%', 'middleman margin cut'],
+            ].map(([num, label]) => (
+              <div key={label} className="rounded-2xl bg-white/5 p-4 ring-1 ring-white/10">
+                <div className="font-display text-2xl font-extrabold text-saffron">{num}</div>
+                <div className="mt-1 text-[11px] leading-tight text-white/60">{label}</div>
+              </div>
+            ))}
+          </motion.div>
         </div>
       </section>
 

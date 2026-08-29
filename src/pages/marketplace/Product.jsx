@@ -112,30 +112,60 @@ export default function Product() {
           </div>
         </div>
 
-        <div className="mt-5 flex flex-wrap items-center gap-3">
-          <div className="flex items-center rounded-xl border border-black/10 bg-white">
-            <button onClick={() => setQty((n) => Math.max(1, n - 1))} className="px-4 py-2.5 font-bold">−</button>
-            <span className="w-8 text-center font-semibold">{qty}</span>
-            <button onClick={() => setQty((n) => Math.min(p.stock, n + 1))} className="px-4 py-2.5 font-bold">+</button>
+        {/* Selling mode + buy actions */}
+        <div className="mt-5">
+          {/* Mode header */}
+          <div className="mb-3 flex items-center justify-between rounded-xl bg-saffron/10 px-4 py-2">
+            <span className="flex items-center gap-2 text-sm font-bold text-saffron-dark">
+              {p.mode === 'bid' ? '⏳ Live Bidding — rare heirloom piece' : p.mode === 'haggle' ? '🕊️ Haggle Mode — negotiate a fair price' : '🏷️ Fixed Price — instant checkout'}
+            </span>
+            {p.floor && (
+              <span className="rounded-full bg-emerald-100 px-2 py-0.5 text-[11px] font-bold text-emerald-700">
+                fair-wage floor {inr(p.floor)}
+              </span>
+            )}
           </div>
-          <button onClick={() => add(p, qty)} className="btn-primary flex-1">
-            <ShoppingCart size={18} /> Add to Cart
-          </button>
-          <Link to="/marketplace/checkout" onClick={() => add(p, qty)} className="btn-ghost shrink-0 !border-saffron !text-saffron-dark">
-            Buy Now
-          </Link>
+
+          {p.mode === 'fixed' && (
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="flex items-center rounded-xl border border-black/10 bg-white">
+                <button onClick={() => setQty((n) => Math.max(1, n - 1))} className="px-4 py-2.5 font-bold">−</button>
+                <span className="w-8 text-center font-semibold">{qty}</span>
+                <button onClick={() => setQty((n) => Math.min(p.stock, n + 1))} className="px-4 py-2.5 font-bold">+</button>
+              </div>
+              <button onClick={() => add(p, qty)} className="btn-primary flex-1">
+                <ShoppingCart size={18} /> Add to Cart
+              </button>
+              <Link to="/marketplace/checkout" onClick={() => add(p, qty)} className="btn-ghost shrink-0 !border-saffron !text-saffron-dark">
+                Buy Now
+              </Link>
+            </div>
+          )}
+
+          {p.mode === 'haggle' && <HaggleBox p={p} />}
+          {p.mode === 'bid' && <BidBox p={p} />}
         </div>
 
         {p.stock <= 8 && <p className="mt-2 text-xs font-semibold text-red-600">⚡ Only {p.stock} left in stock — order soon!</p>}
 
         <div className="card mt-5 bg-saffron/5 p-4">
           <h3 className="flex items-center gap-1.5 font-display font-bold">
-            <BadgeCheck size={16} className="text-saffron-dark" /> Provenance Story
+            <BadgeCheck size={16} className="text-saffron-dark" /> QR-Verified Living Provenance Story
           </h3>
           <p className="mt-2 text-sm text-india-night/75">
-            Born in {p.cluster}, this piece carries a geo-temporal signature proving exactly when and where it was
-            made — bringing you closer to the hands that crafted it.
+            {p.story?.narrative || p.desc}
           </p>
+          {p.story?.fingerprint && (
+            <div className="mt-3 flex items-center gap-3 rounded-xl bg-white p-3">
+              {/* mock QR stamp */}
+              <QrStamp />
+              <div className="min-w-0">
+                <div className="text-[10px] font-bold uppercase tracking-wide text-india-night/50">Maker fingerprint (SHA-256)</div>
+                <div className="truncate font-mono text-xs font-bold text-india-night">{p.story.fingerprint}</div>
+                <div className="text-[10px] text-emerald-700">✓ Verified · {p.cluster} · listed {p.listedAt}</div>
+              </div>
+            </div>
+          )}
         </div>
 
         {artisan && (
@@ -163,6 +193,125 @@ export default function Product() {
         </Link>
       </div>
       <PaisleyRule className="col-span-full text-saffron" />
+    </div>
+  )
+}
+/* ---- QR provenance stamp (mock) ---- */
+function QrStamp() {
+  const cells = []
+  for (let i = 0; i < 7; i++) {
+    for (let j = 0; j < 7; j++) {
+      const corner = (i < 3 && j < 3) || (i < 3 && j > 3) || (i > 3 && j < 3)
+      const on = corner ? i === 0 || i === 2 || (i === 1 && (j === 0 || j === 2)) || (i === 0 && j === 1) : (i + j) % 2 === 0
+      if (on) cells.push(<rect key={`${i}-${j}`} x={j * 5} y={i * 5} width="4.5" height="4.5" />)
+    }
+  }
+  return (
+    <svg viewBox="0 0 35 35" className="h-12 w-12 shrink-0 rounded-md bg-white p-0.5 ring-1 ring-black/10" aria-hidden="true">
+      <rect width="35" height="35" fill="#fff" />
+      <g fill="#1A1423">{cells}</g>
+    </svg>
+  )
+}
+
+/* ---- Haggle (negotiate) selling mode ---- */
+function HaggleBox({ p }) {
+  const { add } = useCart()
+  const [offer, setOffer] = React.useState('')
+  const [state, setState] = React.useState('idle') // idle | low | sent | accepted
+
+  const send = () => {
+    const val = Number(offer) || 0
+    if (val < (p.floor || 0)) {
+      setState('low')
+      return
+    }
+    setState('sent')
+    setTimeout(() => setState('accepted'), 1300)
+  }
+
+  return (
+    <div className="rounded-xl border border-dashed border-saffron/50 bg-white p-4">
+      {state === 'idle' || state === 'low' ? (
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <input
+            className="input flex-1"
+            type="number"
+            placeholder={`Your offer (floor ${inr(p.floor)})`}
+            value={offer}
+            onChange={(e) => setOffer(e.target.value)}
+          />
+          <button onClick={send} className="btn-primary shrink-0">Make Offer</button>
+        </div>
+      ) : state === 'sent' ? (
+        <p className="text-sm text-india-night/70">⏳ Sending your offer to {p.artisan?.name || 'the artisan'}…</p>
+      ) : (
+        <div className="rounded-xl bg-emerald-50 p-4 text-sm">
+          <p className="font-bold text-emerald-700">🎉 Offer accepted at {inr(Number(offer))}!</p>
+          <p className="mt-1 text-emerald-600">The fair-wage floor protected the maker — this cleared the {inr(p.floor)} floor.</p>
+          <button onClick={() => add({ ...p, price: Number(offer) }, 1)} className="btn-primary mt-3 w-full">
+            <ShoppingCart size={16} /> Add accepted offer to cart
+          </button>
+        </div>
+      )}
+      {state === 'low' && (
+        <p className="mt-2 text-xs font-semibold text-red-600">
+          Offer below the fair-wage floor of {inr(p.floor)} — the maker is protected by the pricing engine.
+        </p>
+      )}
+    </div>
+  )
+}
+
+/* ---- Live bidding selling mode ---- */
+function BidBox({ p }) {
+  const [amount, setAmount] = React.useState((p.price || 0) + 50)
+  const [placed, setPlaced] = React.useState([])
+
+  const placeBid = () => {
+    const v = Number(amount) || 0
+    if (v < (p.floor || 0)) return
+    const tid = 'BID-' + Math.floor(1000 + Math.random() * 9000)
+    setPlaced((prev) => [...prev, { tid, amount: v }])
+  }
+
+  const topBid = Math.max(0, ...(p.bids || []).map((b) => b.amount), ...placed.map((b) => b.amount))
+
+  return (
+    <div className="rounded-xl border border-indigo-100 bg-white p-4">
+      <div className="mb-3 flex items-center justify-between">
+        <span className="flex items-center gap-1.5 text-sm font-bold text-india-night">
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-indigo-400" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-indigo-500" />
+          </span>
+          Live · Top bid {inr(topBid)}
+        </span>
+        <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[10px] font-bold text-indigo-700">ONDC auction</span>
+      </div>
+
+      {(p.bids || []).slice(-3).map((b, i) => (
+        <div key={i} className="flex justify-between text-xs text-india-night/60">
+          <span>{b.bidder}</span><span className="font-bold text-india-night">{inr(b.amount)}</span>
+        </div>
+      ))}
+      {placed.map((b, i) => (
+        <div key={i} className="flex justify-between text-xs font-semibold text-emerald-600">
+          <span>You · {b.tid}</span><span>{inr(b.amount)}</span>
+        </div>
+      ))}
+
+      <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+        <input
+          className="input flex-1"
+          type="number"
+          value={amount}
+          min={p.floor}
+          onChange={(e) => setAmount(e.target.value)}
+        />
+        <button onClick={placeBid} className="btn-primary shrink-0">Place Bid</button>
+      </div>
+      <p className="mt-2 text-[11px] text-india-night/50">Rare heirloom pieces go to live bidding — proceeds flow straight to the artisan (0% commission).</p>
     </div>
   )
 }

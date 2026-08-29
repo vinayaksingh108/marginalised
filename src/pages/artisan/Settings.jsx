@@ -44,7 +44,7 @@ export default function Settings() {
         <h3 className="flex items-center gap-2 font-display font-bold"><Languages size={18} className="text-saffron-dark" /> Regional Language</h3>
         <p className="mt-1 text-xs text-india-night/50">Voice &amp; interface follow your language (28+ dialects supported).</p>
         <div className="mt-3 grid grid-cols-3 gap-2 sm:grid-cols-6">
-          {LANGUAGES.filter((l) => ['hi', 'ta', 'te', 'bn', 'gu', 'pa', 'mr', 'kn', 'ml', 'or', 'as', 'bho', 'raj', 'cg'].includes(l.code)).map((l) => (
+          {LANGUAGES.filter((l) => ['en', 'hi', 'ta', 'te', 'bn', 'gu', 'pa', 'mr', 'kn', 'ml', 'or', 'as', 'bho', 'raj', 'cg'].includes(l.code)).map((l) => (
             <button key={l.code} onClick={() => applyLanguage(l.code)}
               className={`rounded-xl border p-2 text-center transition ${lang === l.code ? 'border-saffron bg-saffron/10' : 'border-black/10 bg-white'}`}>
               <div className="text-sm font-bold text-india-night">{l.name}</div>

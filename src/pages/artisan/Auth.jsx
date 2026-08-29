@@ -59,21 +59,14 @@ export default function Auth() {
         ))}
       </div>
 
-      {/* Language grid */}
+      {/* Language grid — English always pinned first, then the filtered group */}
       <motion.div layout className="mt-5 grid grid-cols-3 gap-2 sm:grid-cols-4">
         {langList.map((l) => (
-          <motion.button
-            key={l.id}
-            whileTap={{ scale: 0.96 }}
-            onClick={() => selectLanguage(l)}
-            className={`flex flex-col items-center rounded-xl border p-3 transition ${
-              sel?.id === l.id ? 'border-saffron bg-saffron/15' : 'border-white/10 bg-white/5 hover:bg-white/10'
-            }`}
-          >
-            <span className="font-display text-lg font-bold text-white">{l.name}</span>
-            <span className="text-[10px] text-white/50">{l.latin}</span>
-          </motion.button>
+          <LangButton key={l.id} l={l} sel={sel} onPick={selectLanguage} />
         ))}
+        {group !== 'global' && (
+          <LangButton l={LANGUAGES[0]} sel={sel} onPick={selectLanguage} pinned />
+        )}
       </motion.div>
       {sel && (
         <div className="mt-4 flex items-center justify-center gap-2 text-sm text-saffron">
@@ -120,5 +113,21 @@ export default function Auth() {
         )}
       </div>
     </div>
+  )
+}
+function LangButton({ l, sel, onPick, pinned }) {
+  const isSel = sel?.id === l.id
+  return (
+    <motion.button
+      whileTap={{ scale: 0.96 }}
+      onClick={() => onPick(l)}
+      className={`flex flex-col items-center rounded-xl border p-3 transition ${
+        isSel ? 'border-saffron bg-saffron/15' : 'border-white/10 bg-white/5 hover:bg-white/10'
+      } ${pinned && !isSel ? 'border-sky-300/60 ring-1 ring-sky-300/40' : ''}`}
+    >
+      {pinned && <span className="mb-0.5 text-[9px] font-bold uppercase tracking-wide text-sky-300">🌐 Global</span>}
+      <span className="font-display text-lg font-bold text-white">{l.name}</span>
+      <span className="text-[10px] text-white/50">{l.latin}</span>
+    </motion.button>
   )
 }

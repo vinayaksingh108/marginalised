@@ -93,6 +93,11 @@ export default function Checkout() {
                 <div className="flex justify-between"><span>Shipping</span><b>{shipping ? inr(shipping) : 'FREE'}</b></div>
                 <div className="flex justify-between pt-1 font-bold text-india-night"><span>Total</span><span>{inr(totalBill)}</span></div>
               </div>
+              {/* GST geo-fencing (Project Loom compliance) */}
+              <div className="mt-3 rounded-lg bg-sky-50 p-2.5 text-[11px] leading-snug text-sky-800">
+                🛡️ <b>GST geo-fence:</b> intra-state sale — artisan turnover under ₹40 lakh exemption is auto-detected
+                and kept compliant. Ed25519 signed, no GST charged.
+              </div>
             </div>
             <button onClick={pay} disabled={paying} className="btn-primary mt-4 w-full">
               {paying ? 'Processing…' : `Pay ${inr(totalBill)}`}

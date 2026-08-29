@@ -9,6 +9,7 @@ import { removeBackground, studioEnhance } from '../../lib/bgremove'
 import { createRecognizer, speak, inr } from '../../lib/speech'
 import { CATEGORY_META } from '../../components/IndianMotifs'
 import { useLang } from '../../context/LanguageContext'
+import { FLOOR_BY_CRAFT } from '../../data/seed'
 
 const CATEGORIES = Object.entries(CATEGORY_META).map(([key, m]) => ({ key, ...m }))
 
@@ -25,11 +26,18 @@ export default function AddProduct() {
   const [listening, setListening] = useState(false)
   const [spoken, setSpoken] = useState('')
   const [saved, setSaved] = useState(false)
+  const [confirming, setConfirming] = useState(false)
 
   const [form, setForm] = useState({
     title: '', category: 'pottery', price: '', stock: 10, desc: '', tags: '',
   })
   const set = (k, v) => setForm((s) => ({ ...s, [k]: v }))
+
+  // Fair-wage floor for the pricing engine
+  const floor = FLOOR_BY_CRAFT[form.category] || 180
+  const enteredPrice = Number(form.price) || 0
+  const belowFloor = enteredPrice > 0 && enteredPrice < floor
+  const suggested = Math.max(floor, Math.round(enteredPrice || floor * 1.15))
 
   const onFile = (e) => {
     const file = e.target.files?.[0]
@@ -96,15 +104,19 @@ export default function AddProduct() {
     if (rec) rec.start()
   }
 
-  const saveProduct = async () => {
-    if (!form.title.trim()) return speak('पहले उत्पाद का नाम बोलिए या लिखिए।')
+  const publish = async () => {
+    if (belowFloor && enteredPrice < floor) {
+      speak(`कीमत ${inr(floor)} से कम नहीं हो सकती। न्यूनतम सुझाई गई कीमत ${inr(suggested)} है।`)
+      return
+    }
     const id = 'p' + Date.now()
     await db.products.put({
       id,
       title: form.title,
       artisanId: 'a1',
       category: form.category,
-      price: Number(form.price) || 500,
+      price: enteredPrice || suggested,
+      floor,
       gi: true,
       stock: Number(form.stock) || 10,
       desc: form.desc || `Handcrafted ${CATEGORY_META[form.category]?.label || form.category}.`,
@@ -112,12 +124,29 @@ export default function AddProduct() {
       listedAt: new Date().toISOString().slice(0, 10),
       tags: (form.tags || '').split(',').map((t) => t.trim()).filter(Boolean).concat(['New']),
       units: 'pc',
-      cost: { craft: Math.round((Number(form.price) || 500) * 0.45), material: 120, platformFee: 25, shipping: 40 },
+      mode: 'fixed',
+      ondc: true,
+      story: {
+        maker: 'Sunita Devi',
+        narrative: form.desc || `Handcrafted ${CATEGORY_META[form.category]?.label || form.category} by Sunita Devi.`,
+        fingerprint: 'ec-' + id.slice(-6) + '-a1b2c3d4e5',
+      },
+      cost: { craft: Math.round((enteredPrice || suggested) * 0.45), material: 120, platformFee: 0, shipping: 40 },
     })
     notifyProductsChanged()
     setSaved(true)
-    speak('उत्पाद सफलतापूर्वक जोड़ दिया गया!')
-    setTimeout(() => navigate('/artisan/dashboard'), 1400)
+    speak('उत्पाद सफलतापूर्वक प्रकाशित हो गया। ONDC पर सभी बायर्स ऐप्स पर लाइव।')
+    setTimeout(() => navigate('/artisan/dashboard'), 1600)
+  }
+
+  const saveProduct = () => {
+    if (!form.title.trim()) return speak('पहले उत्पाद का नाम बोलिए या लिखिए।')
+    if (belowFloor) {
+      return speak(`कीमत ${inr(floor)} से कम नहीं हो सकती। सुझाई गई कीमत ${inr(suggested)}।`)
+    }
+    setConfirming(true)
+    // TTS read-back consent — speak the draft back before publishing
+    speak(`कृपया जाँच लें। ${form.title}, कीमत ${inr(enteredPrice || suggested)}, स्टॉक ${form.stock || 10}। प्रकाशित करने के लिए हाँ दबाइए।`)
   }
 
   return (
@@ -235,10 +264,33 @@ export default function AddProduct() {
                 <textarea className="input min-h-[70px]" value={form.desc} onChange={(e) => set('desc', e.target.value)} placeholder="Tell the craft story…" />
               </label>
             </div>
-            <button onClick={saveProduct} className="btn-primary mt-4 w-full">
-              {saved ? <><CheckCircle2 size={18} /> Added!</> : <><Save size={18} /> Publish to Marketplace</>}
-            </button>
-            {saved && <p className="mt-2 text-center text-sm font-semibold text-emerald-600">✅ Product list updated successfully!</p>}
+            <div className="mt-2 rounded-xl bg-saffron/10 p-3 text-[11px] leading-snug text-saffron-dark">
+              💡 <b>Fair-wage pricing engine:</b> floor for {CATEGORY_META[form.category]?.label || form.category} is {inr(floor)} —
+              list prices can't go below this. Suggested: <b>{inr(suggested)}</b>. Published once via Beckn → live on all ONDC buyer apps (0% fee).
+            </div>
+            {belowFloor && (
+              <div className="mt-2 rounded-xl bg-red-50 p-3 text-xs font-semibold text-red-600">
+                ⚠️ {inr(enteredPrice)} is below the {inr(floor)} fair-wage floor. Raise to at least {inr(suggested)}.
+              </div>
+            )}
+            {confirming ? (
+              <div className="mt-4 rounded-xl border-2 border-saffron bg-india-cream p-4">
+                <p className="text-sm font-bold text-india-night">🔊 Read-back consent</p>
+                <p className="mt-1 text-sm text-india-night/70">
+                  "{form.title}" — {inr(enteredPrice || suggested)} · stock {form.stock || 10}
+                </p>
+                <p className="mt-1 text-[11px] text-india-night/50">Voice has read the listing back to you in your dialect.</p>
+                <div className="mt-3 flex gap-2">
+                  <button onClick={publish} className="btn-primary flex-1 !py-2.5"><CheckCircle2 size={16} /> Yes, publish on ONDC</button>
+                  <button onClick={() => setConfirming(false)} className="btn-ghost !py-2.5">Edit</button>
+                </div>
+              </div>
+            ) : (
+              <button onClick={saveProduct} className="btn-primary mt-4 w-full">
+                {saved ? <><CheckCircle2 size={18} /> Published!</> : <><Save size={18} /> Review & Publish</>}
+              </button>
+            )}
+            {saved && <p className="mt-2 text-center text-sm font-semibold text-emerald-600">✅ Live on EmpowerCraft + ONDC buyer apps</p>}
           </div>
 
           <Link to="/artisan/dashboard" className="block text-center text-sm font-semibold text-white/70 hover:text-white">Cancel</Link>

@@ -124,6 +124,26 @@ export default function Dashboard() {
         </div>
         <Link to="/artisan/smart-wallet" className="btn-primary !bg-emerald-600 hover:!bg-emerald-700">{t('openWallet')}</Link>
       </div>
+
+      {/* 24×7 support ecosystem */}
+      <div className="card bg-white p-5">
+        <h3 className="font-display text-lg font-bold text-india-night">24×7 Support Ecosystem 📞</h3>
+        <p className="mt-1 text-sm text-india-night/60">Toll-free helpdesk · AI scheme-finder · nearby NGOs, SHGs & investors</p>
+        <div className="mt-4 grid gap-3 sm:grid-cols-3">
+          {[
+            ['📞', 'Toll-free helpdesk', '1800-266-0777 (24×7, 8 भाषाएँ)'],
+            ['🔍', 'AI scheme-finder', 'Ask in your dialect — we match you'],
+            ['🤝', 'NGO / SHG network', 'Discover nearby support & investors'],
+          ].map(([ic, title, sub]) => (
+            <button key={title} onClick={() => speak(`सहायता हब खोल रहा हूँ। टोल फ्री हेल्पलाइन 1800-266-0777।`)}
+              className="rounded-xl border border-black/5 bg-india-cream p-4 text-left transition hover:border-saffron">
+              <div className="text-2xl">{ic}</div>
+              <div className="mt-1 text-sm font-bold text-india-night">{title}</div>
+              <div className="text-[11px] text-india-night/50">{sub}</div>
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   )
 }

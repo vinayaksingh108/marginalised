@@ -130,6 +130,14 @@ export const PRODUCTS = [
     material: 190,
     platformFee: 45,
     shipping: 60,
+    mode: 'bid',
+    bids: [...BID_FEED],
+    story: {
+      maker: 'Mohan Kumar',
+      narrative:
+        'This elephant was cast in lost-wax by Mohan Kumar of Mutholi. Each generation teaches the next the secret of the beeswax core — a craft passed down unbroken for 4,000 years through the tribes of Telangana.',
+      fingerprint: 'ec-000042-9f4e2c7a1d08',
+    },
   },
   {
     id: 'p3',
@@ -148,6 +156,7 @@ export const PRODUCTS = [
     material: 310,
     platformFee: 55,
     shipping: 60,
+    mode: 'haggle',
   },
   {
     id: 'p4',
