@@ -125,6 +125,8 @@ export function parseVoiceIntent(raw, productTitle = '') {
 export const WELCOME_VOICE = {
   hi: 'नमस्ते! स्वागत है एम्पॉवरक्राफ्ट में। मैं आपकी कुशल साथी हूँ।',
   'hi-IN': 'नमस्ते! स्वागत है एम्पॉवरक्राफ्ट में। मैं आपकी कुशल साथी हूँ।',
+  en: 'Welcome to EmpowerCraft, your digital workshop companion.',
+  'en-IN': 'Welcome to EmpowerCraft, your digital workshop companion.',
   default: 'Welcome to EmpowerCraft, your digital workshop companion.',
 }
 
